@@ -10,11 +10,16 @@ files and process them through the `coffee` filter and let JavaScript files
 pass through.
 
 ```js
+var coffee = require('gulp-coffee');
+var rename = require('gulp-rename');
+
 gulp.src("src/**/*.{coffee,js}")
     .pipe(tap(function(file, t) {
+    rename(function (path) {
         if (path.extname(file.path) === '.coffee') {
             return t.through(coffee, []);
         }
+        })
     }))
     .pipe(gulp.dest('build'));
 ```
